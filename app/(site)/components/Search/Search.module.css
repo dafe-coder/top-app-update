@@ -1,0 +1,21 @@
+.icon {
+	height: 15px;
+	vertical-align: middle;
+}
+
+.search {
+	width: 230px;
+	position: relative;
+}
+
+.btn {
+	position: absolute;
+	right: 3px;
+	top: 50%;
+	transform: translateY(-50%);
+	padding: 7px;
+}
+
+.input {
+	width: 100%;
+}
