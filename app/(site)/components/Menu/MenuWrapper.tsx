@@ -11,7 +11,7 @@ import {
 } from '@/interfaces/menu.interface'
 import cn from 'classnames'
 import { usePathname } from 'next/navigation'
-import { firstLevelMenu } from '../helpers/helpers'
+import { firstLevelMenu } from '../../../../helpers/helpers'
 
 interface MenuWrapperProps {
 	firstCategory: TopLevelCategory

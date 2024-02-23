@@ -5,7 +5,7 @@ export enum TopLevelCategory {
 	Services,
 }
 
-export interface TopPage {
+export interface TopPageModel {
 	_id: string
 	tags: string[]
 	secondCategory: string

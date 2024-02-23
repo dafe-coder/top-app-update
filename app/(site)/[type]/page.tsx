@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { firstLevelMenu } from '../components/helpers/helpers'
+import { firstLevelMenu } from '../../../helpers/helpers'
 
 interface Props {
 	params: {
@@ -11,9 +11,9 @@ export const generateStaticParams = async () => {
 	return firstLevelMenu.map((m) => ({ type: m.route }))
 }
 
-const Page: FC<Props> = ({ params }) => {
+const TopPagePage: FC<Props> = ({ params }) => {
 	const { type } = params
 
 	return <div>{type}</div>
 }
-export default Page
+export default TopPagePage

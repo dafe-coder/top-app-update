@@ -3,6 +3,9 @@ import '../globals.css'
 import { Noto_Sans_KR } from 'next/font/google'
 import styles from './layout.module.css'
 import cn from 'classnames'
+import { Header } from './components/Header/Header'
+import { Sidebar } from './components/Sidebar/Sidebar'
+import { Footer } from './components/Footer/Footer'
 
 export const metadata: Metadata = {
 	title: 'App new',
@@ -22,7 +25,12 @@ export default function RootLayout({
 }>): JSX.Element {
 	return (
 		<html lang='ru'>
-			<body className={cn(notoSans.className)}>{children}</body>
+			<body className={cn(notoSans.className, styles.wrap)}>
+				<Header className={styles.header} />
+				<Sidebar className={styles.sidebar} />
+				<div className={styles.body}>{children}</div>
+				<Footer className={styles.footer} />
+			</body>
 		</html>
 	)
 }

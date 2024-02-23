@@ -9,7 +9,6 @@ import { Search } from '../Search/Search'
 
 export const Sidebar: FC<SidebarProps> = ({
 	className,
-	type,
 	...props
 }): JSX.Element => {
 	return (
@@ -18,7 +17,7 @@ export const Sidebar: FC<SidebarProps> = ({
 				<Logo className={styles.logo} />
 			</Link>
 			<Search />
-			<Menu type={type} />
+			<Menu />
 		</div>
 	)
 }

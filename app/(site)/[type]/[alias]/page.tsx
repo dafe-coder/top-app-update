@@ -5,6 +5,7 @@ import { MenuItem, PageItem } from '@/interfaces/menu.interface'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { FC } from 'react'
+import TopPage from '../../components/TopPage/TopPage'
 
 export const metadata: Metadata = {
 	title: 'Страница',
@@ -34,9 +35,7 @@ const PageProducts: FC<Props> = async ({ params }) => {
 
 	return (
 		<div>
-			{page.title}
-			<br />
-			{products?.length}
+			<TopPage firstLevelCategory={0} page={page} products={products} />
 		</div>
 	)
 }

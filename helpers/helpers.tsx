@@ -31,7 +31,6 @@ export const firstLevelMenu: FirstLevelMenuItem[] = [
 		id: TopLevelCategory.Products,
 	},
 ]
-
 export const priceFix = (price: number): string =>
 	price
 		.toString()
