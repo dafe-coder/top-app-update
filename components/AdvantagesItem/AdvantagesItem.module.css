@@ -1,0 +1,42 @@
+.item {
+	display: grid;
+	grid-template-columns: 50px 1fr;
+	gap: 40px;
+}
+
+.circle {
+	width: 50px;
+	height: 50px;
+	background: var(--green-light);
+	border-radius: 50px;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+}
+
+.right {
+	margin-top: 12px;
+}
+.left {
+	display: grid;
+	justify-content: start;
+	align-items: start;
+	grid-template-rows: auto 1fr;
+	gap: 17px;
+}
+
+.line {
+	display: block;
+	height: 100%;
+	width: 1px;
+	background: #D2D2D2;
+	margin: 0 auto;
+}
+
+.right p {
+	margin-bottom: 0;
+}
+
+.title {
+	margin-bottom: 20px;
+}

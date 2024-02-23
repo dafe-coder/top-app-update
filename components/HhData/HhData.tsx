@@ -3,6 +3,7 @@ import Card from '../ui/Card/Card'
 import styles from './hhData.module.css'
 import { HhDataProps } from './HhData.props'
 import RateIcon from './star.svg'
+import { priceFix } from '@/helpers/helpers'
 
 const HhData: FC<HhDataProps> = ({
 	count,
@@ -10,9 +11,6 @@ const HhData: FC<HhDataProps> = ({
 	middleSalary,
 	seniorSalary,
 }) => {
-	const priceFix = (price: number) => {
-		return price
-	}
 	return (
 		<div className={styles.hh}>
 			<Card className={styles.count}>
