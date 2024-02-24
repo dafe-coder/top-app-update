@@ -5,6 +5,8 @@ import { Button } from '../../components/ui/Button/Button'
 import Par from '../../components/ui/Par/Par'
 import { Tag } from '../../components/ui/Tag/Tag'
 import Rating from '../../components/ui/Rating/Rating'
+import { Input } from '@/components/ui/Input/Input'
+import { Textarea } from '../../components/ui/Textarea/Textarea'
 
 export default async function Home() {
 	return (
@@ -12,6 +14,8 @@ export default async function Home() {
 			<Htag tag='h1'>Hello wor ld!</Htag>
 			<Button appearance='primary'>Primary button</Button>
 			<Rating rating={3} />
+			<Input placeholder='test' />
+			<Textarea placeholder='text' />
 			<Par>
 				Sed hic accusamus minus ad veniam ab soluta quae quia harum. Alias
 				assumenda delectus aut, veritatis, minima dolores veniam dicta incidunt

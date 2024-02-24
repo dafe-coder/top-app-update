@@ -6,19 +6,14 @@ import { Input } from '../../../../components/ui/Input/Input'
 import { Button } from '../../../../components/ui/Button/Button'
 import SearchIcon from './search.svg'
 import { useState } from 'react'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
 	const [value, setValue] = useState('')
-	// const router = useRouter()
+	const router = useRouter()
 
 	const goToSearch = () => {
-		// router.push({
-		// 	pathname: '/search',
-		// 	query: {
-		// 		q: value,
-		// 	},
-		// })
+		router.push(`/search?q=${value}`)
 	}
 
 	const handleKeyDown = (e: React.KeyboardEvent): void => {
