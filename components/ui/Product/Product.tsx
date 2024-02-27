@@ -1,5 +1,5 @@
 'use clients'
-import { FC, useState } from 'react'
+import React, { FC, useState } from 'react'
 import { ProductProps } from './Product.props'
 import cn from 'classnames'
 import styles from './Product.module.css'
@@ -11,6 +11,8 @@ import { declOfNumber, priceFix } from '@/helpers/helpers'
 import { Button } from '../Button/Button'
 import Divider from '../Divider/Divider'
 import Par from '../Par/Par'
+import { Review } from '../Review/Review'
+import { ReviewForm } from '../ReviewForm/ReviewForm'
 
 const Product: FC<ProductProps> = ({ product, className }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -101,7 +103,10 @@ const Product: FC<ProductProps> = ({ product, className }) => {
 					[styles.closed]: !isOpen,
 				})}
 			>
-				s
+				{product.reviews.map((r) => (
+					<Review key={r._id} review={r} />
+				))}
+				<ReviewForm productId={product._id} />
 			</Card>
 		</>
 	)

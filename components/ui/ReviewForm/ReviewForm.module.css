@@ -1,0 +1,60 @@
+.form {
+	display: grid;
+	grid-template-columns: auto auto 1fr;
+	grid-template-areas: 'input input2 rating' 'textarea textarea textarea' 'btn par par';
+	gap: 20px 15px;
+}
+
+.rating {
+	display: flex;
+	gap: 15px;
+	grid-area: rating;
+	justify-self: flex-end;
+}
+.input {
+	grid-area: input;
+}
+.input2 {
+	grid-area: input2;
+}
+.textarea {
+	grid-area: textarea;
+}
+.btn {
+	grid-area: btn;
+}
+.par {
+	grid-area: par;
+}
+
+.success {
+	background: var(--green-light);
+	position: relative;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.close {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	cursor: pointer;
+}
+
+.successTitle {
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+	.form {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'input'
+			'input2'
+			'textarea'
+			'rating'
+			'btn'
+			'par';
+	}
+}

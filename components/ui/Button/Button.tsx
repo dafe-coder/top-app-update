@@ -13,7 +13,6 @@ export const Button = ({
 }: ButtonProps): JSX.Element => {
 	return (
 		<button
-			onClick={() => console.log('Hello')}
 			className={cn(styles.button, className, {
 				[styles.primary]: appearance == 'primary',
 				[styles.ghost]: appearance == 'ghost',

@@ -270,10 +270,12 @@
 }
 
 .opened {
+	overflow: hidden;
 	max-height: auto;
 	padding: 30px;
 	transition: all ease 0.3s;
 }
 
 .review {
+	margin-top: -9px;
 }
