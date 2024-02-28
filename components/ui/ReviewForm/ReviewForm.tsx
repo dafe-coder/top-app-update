@@ -19,7 +19,12 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 	className,
 	...props
 }: ReviewFormProps) => {
-	const { control, register, handleSubmit } = useForm<IReviewForm>()
+	const {
+		control,
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<IReviewForm>()
 
 	const onSubmit = (data: IReviewForm) => {
 		console.log(data)
@@ -34,13 +39,18 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 				{...props}
 			>
 				<Input
-					defaultValue='test'
-					{...register('name')}
+					{...register('name', {
+						required: { value: true, message: 'Введите Имя' },
+					})}
 					className={styles.input}
 					placeholder='Имя'
+					error={errors?.name}
 				/>
 				<Input
-					{...register('title')}
+					{...register('title', {
+						required: { value: true, message: 'Введите Заголовок' },
+					})}
+					error={errors.title}
 					className={styles.input2}
 					placeholder='Заголовок отзыва'
 				/>
@@ -49,8 +59,10 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 					<Controller
 						control={control}
 						name='rating'
+						rules={{ required: { value: true, message: 'Choose rating' } }}
 						render={({ field }) => (
 							<Rating
+								error={errors.rating}
 								ref={field.ref}
 								isEditable
 								rating={field.value}
@@ -60,7 +72,14 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 					/>
 				</div>
 				<Textarea
-					{...register('description')}
+					{...register('description', {
+						required: { value: true, message: 'Введите текст' },
+						maxLength: {
+							value: 280,
+							message: 'Максимальная длинна 280 символов!',
+						},
+					})}
+					error={errors.description}
 					className={styles.textarea}
 					placeholder='Текст отзыва'
 				/>

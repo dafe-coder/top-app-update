@@ -9,3 +9,9 @@
 .editable {
 	cursor: pointer;
 }
+
+.error {
+	stroke-width: 1px;
+	stroke: var(--red);
+	fill: var(--blue);
+}

@@ -6,7 +6,10 @@ import styles from './Rating.module.css'
 import SvgStar from './star.svg'
 
 const Rating: FC<RatingProps> = forwardRef(
-	({ isEditable = false, rating, setRating, className, ...props }, ref) => {
+	(
+		{ isEditable = false, error, rating, setRating, className, ...props },
+		ref
+	) => {
 		const [ratingArray, setRatingArray] = React.useState<JSX.Element[]>(
 			new Array(5).fill(<></>)
 		)
@@ -42,6 +45,7 @@ const Rating: FC<RatingProps> = forwardRef(
 						className={cn(styles.star, {
 							[styles.editable]: isEditable,
 							[styles.filled]: currentRating > i,
+							[styles.error]: error?.message,
 						})}
 						tabIndex={isEditable ? 0 : -1}
 						onKeyDown={(e: KeyboardEvent<SVGElement>) => handleSpace(i, e)}
@@ -53,7 +57,7 @@ const Rating: FC<RatingProps> = forwardRef(
 
 		React.useEffect(() => {
 			constructRating(rating)
-		}, [rating])
+		}, [rating, error])
 
 		return (
 			<div {...props} ref={ref} className={cn(styles.rating, className)}>
