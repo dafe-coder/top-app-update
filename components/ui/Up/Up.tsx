@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 import cn from 'classnames'
 import styles from './Up.module.css'
-import ArrowIcon from './arrow.svg'
 import { useScrollY } from '@/hooks/useScrollY'
 import { useAnimation } from 'framer-motion'
 import { motion } from 'framer-motion'
+import { ButtonIcon } from '../ButtonIcon/ButtonIcon'
 
 const Up: FC = () => {
 	const controls = useAnimation()
@@ -23,11 +23,10 @@ const Up: FC = () => {
 	return (
 		<motion.div
 			animate={controls}
-			onClick={scrollToTop}
 			initial={{ opacity: 0 }}
 			className={cn(styles.up)}
 		>
-			<ArrowIcon />
+			<ButtonIcon appearance='primary' icon='up' onClick={scrollToTop} />
 		</motion.div>
 	)
 }

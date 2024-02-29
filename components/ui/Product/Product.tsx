@@ -118,6 +118,7 @@ const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 				animate={isOpen ? 'visible' : 'hidden'}
 				initial='hidden'
 				variants={variants}
+				style={{ overflow: 'hidden' }}
 			>
 				<Card ref={refReview} color='blue' className={cn(styles.review)}>
 					{product.reviews.map((r) => (

@@ -4,7 +4,7 @@
 }
 
 .search {
-	width: 230px;
+	min-width: 230px;
 	position: relative;
 }
 
@@ -16,6 +16,9 @@
 	padding: 7px;
 }
 
-.input {
+.input input {
 	width: 100%;
+}
+
+.close {
 }

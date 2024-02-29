@@ -34,9 +34,10 @@
 			'body'
 			'footer'
 			/ minmax(320px, 1fr);
+		gap: 10px;
 	}
 	.header {
-		display: block;
+		display: grid;
 	}
 	.sidebar {
 		display: none !important;
