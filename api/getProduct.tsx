@@ -1,4 +1,4 @@
-import { API } from '@/app/api'
+import { API } from '@/helpers/api'
 import { ProductModel } from '@/interfaces/product.interface'
 
 export async function getProducts(

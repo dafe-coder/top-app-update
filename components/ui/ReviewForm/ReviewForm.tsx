@@ -13,6 +13,7 @@ import CloseIcon from './close.svg'
 import { useForm } from 'react-hook-form'
 import { IReviewForm } from './reviewForm.interface'
 import { Controller } from 'react-hook-form'
+import { sendReview } from '@/api/sendReview'
 
 export const ReviewForm: FC<ReviewFormProps> = ({
 	productId,
@@ -23,11 +24,30 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 		control,
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<IReviewForm>()
+	const [isSuccess, setIsSuccess] = React.useState<boolean>(false)
+	const [error, setError] = React.useState<string>()
 
-	const onSubmit = (data: IReviewForm) => {
-		console.log(data)
+	const onSubmit = async (data: IReviewForm) => {
+		try {
+			const res = await sendReview(data, productId)
+			if (res) {
+				setIsSuccess(true)
+			} else {
+				setError('Что-то пошло не так')
+			}
+		} catch (err) {
+			if (
+				typeof err === 'object' &&
+				err &&
+				'message' in err &&
+				typeof err.message === 'string'
+			) {
+				setError(err.message)
+			}
+		}
 	}
 	return (
 		<>
@@ -90,13 +110,27 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 					* Перед публикацией отзыв пройдет предварительную модерацию и проверку
 				</Par>
 			</form>
-			<div className={styles.success}>
-				<CloseIcon className={styles.close} />
-				<div className={styles.successTitle}>Ваш отзыв отправлен!</div>
-				<div className={styles.successPar}>
-					Спасибо, Ваш отзыв будет опубликован после проверки.
+			{isSuccess && (
+				<div className={styles.success}>
+					<CloseIcon
+						className={styles.close}
+						onClick={() => setIsSuccess(false)}
+					/>
+					<div className={styles.successTitle}>Ваш отзыв отправлен!</div>
+					<div className={styles.successPar}>
+						Спасибо, Ваш отзыв будет опубликован после проверки.
+					</div>
 				</div>
-			</div>
+			)}
+			{error && (
+				<div className={styles.error}>
+					Что-то пошло не так. Попробуйте обновить страницу.
+					<CloseIcon
+						className={styles.close}
+						onClick={() => setError(undefined)}
+					/>
+				</div>
+			)}
 		</>
 	)
 }

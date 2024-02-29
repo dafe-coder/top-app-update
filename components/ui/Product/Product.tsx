@@ -1,5 +1,5 @@
 'use clients'
-import React, { FC, useState } from 'react'
+import React, { FC, useRef, useState } from 'react'
 import { ProductProps } from './Product.props'
 import cn from 'classnames'
 import styles from './Product.module.css'
@@ -14,11 +14,17 @@ import Par from '../Par/Par'
 import { Review } from '../Review/Review'
 import { ReviewForm } from '../ReviewForm/ReviewForm'
 
-const Product: FC<ProductProps> = ({ product, className }) => {
+const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const refReview = useRef<HTMLDivElement>(null)
+
+	const scrollToReview = () => {
+		setIsOpen(true)
+		refReview?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}
 
 	return (
-		<>
+		<div className={cn(className)} {...props}>
 			<Card className={cn(styles.product, className)}>
 				<div className={styles.logo}>
 					<Image
@@ -53,10 +59,10 @@ const Product: FC<ProductProps> = ({ product, className }) => {
 				</div>
 				<div className={styles.priceTitle}>Цена</div>
 				<div className={styles.creditTitle}>Кредит</div>
-				<div className={styles.rateTitle}>
+				<a href='#ref' onClick={scrollToReview} className={styles.rateTitle}>
 					{product.reviewCount}{' '}
 					{declOfNumber(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
-				</div>
+				</a>
 				<Divider className={styles.hr} />
 				<div className={styles.description}>
 					<Par>{product.description}</Par>
@@ -97,6 +103,7 @@ const Product: FC<ProductProps> = ({ product, className }) => {
 				</div>
 			</Card>
 			<Card
+				ref={refReview}
 				color='blue'
 				className={cn(styles.review, {
 					[styles.opened]: isOpen,
@@ -108,7 +115,7 @@ const Product: FC<ProductProps> = ({ product, className }) => {
 				))}
 				<ReviewForm productId={product._id} />
 			</Card>
-		</>
+		</div>
 	)
 }
 export default Product
