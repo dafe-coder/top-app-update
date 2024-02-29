@@ -12,6 +12,8 @@ import { useReducer } from 'react'
 import { sortReducer } from '@/components/ui/Sort/sort.reducer'
 import { SortEnum } from '@/components/ui/Sort/Sort.props'
 import Product from '@/components/ui/Product/Product'
+import { motion } from 'framer-motion'
+import Up from '@/components/ui/Up/Up'
 
 const TopPage: FC<TopPageProps> = ({ page, products, firstLevelCategory }) => {
 	const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(
@@ -28,6 +30,7 @@ const TopPage: FC<TopPageProps> = ({ page, products, firstLevelCategory }) => {
 
 	return (
 		<div className={styles.wrapper}>
+			<Up />
 			<div className={styles.header}>
 				<Htag>{page.title}</Htag>
 				{sortedProducts && (
@@ -39,7 +42,11 @@ const TopPage: FC<TopPageProps> = ({ page, products, firstLevelCategory }) => {
 			</div>
 			<div>
 				{products?.length &&
-					products.map((p) => <Product product={p} key={p._id} />)}
+					products.map((p) => (
+						<motion.div layout key={p._id}>
+							<Product product={p} />
+						</motion.div>
+					))}
 			</div>
 			<div className={styles.hhTitle}>
 				<Htag tag='h2'>Вакансии - {page.category}</Htag>

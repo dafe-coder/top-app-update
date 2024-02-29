@@ -262,20 +262,7 @@
 	}
 }
 
-.closed {
-	overflow: hidden;
-	max-height: 0;
-	padding: 0;
-	transition: all ease 0.3s;
-}
-
-.opened {
-	overflow: hidden;
-	max-height: auto;
-	padding: 30px;
-	transition: all ease 0.3s;
-}
-
 .review {
-	margin-top: -9px;
+	overflow: hidden;
+	padding: 30px;
 }

@@ -13,6 +13,7 @@ import Divider from '../Divider/Divider'
 import Par from '../Par/Par'
 import { Review } from '../Review/Review'
 import { ReviewForm } from '../ReviewForm/ReviewForm'
+import { motion } from 'framer-motion'
 
 const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -21,6 +22,17 @@ const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 	const scrollToReview = () => {
 		setIsOpen(true)
 		refReview?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}
+
+	const variants = {
+		visible: {
+			opacity: 1,
+			height: 'auto',
+		},
+		hidden: {
+			height: 0,
+			opacity: 0,
+		},
 	}
 
 	return (
@@ -102,19 +114,18 @@ const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 					</Button>
 				</div>
 			</Card>
-			<Card
-				ref={refReview}
-				color='blue'
-				className={cn(styles.review, {
-					[styles.opened]: isOpen,
-					[styles.closed]: !isOpen,
-				})}
+			<motion.div
+				animate={isOpen ? 'visible' : 'hidden'}
+				initial='hidden'
+				variants={variants}
 			>
-				{product.reviews.map((r) => (
-					<Review key={r._id} review={r} />
-				))}
-				<ReviewForm productId={product._id} />
-			</Card>
+				<Card ref={refReview} color='blue' className={cn(styles.review)}>
+					{product.reviews.map((r) => (
+						<Review key={r._id} review={r} />
+					))}
+					<ReviewForm productId={product._id} />
+				</Card>
+			</motion.div>
 		</div>
 	)
 }
