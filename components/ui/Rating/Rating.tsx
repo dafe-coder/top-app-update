@@ -1,5 +1,5 @@
 'use client'
-import React, { FC, KeyboardEvent, forwardRef } from 'react'
+import React, { FC, KeyboardEvent, forwardRef, useRef } from 'react'
 import { RatingProps } from './Rating.props'
 import cn from 'classnames'
 import styles from './Rating.module.css'
@@ -7,12 +7,22 @@ import SvgStar from './star.svg'
 
 const Rating: FC<RatingProps> = forwardRef(
 	(
-		{ isEditable = false, error, rating, setRating, className, ...props },
+		{
+			isEditable = false,
+			error,
+			rating,
+			setRating,
+			className,
+			tabIndex,
+			...props
+		},
 		ref
 	) => {
 		const [ratingArray, setRatingArray] = React.useState<JSX.Element[]>(
 			new Array(5).fill(<></>)
 		)
+
+		const ratingRef = useRef<(HTMLSpanElement | null)[]>([])
 
 		const onClick = (i: number) => {
 			if (!isEditable || !setRating) return
@@ -26,11 +36,32 @@ const Rating: FC<RatingProps> = forwardRef(
 			constructRating(i)
 		}
 
-		const handleSpace = (i: number, e: KeyboardEvent<SVGElement>): void => {
-			if (e.code !== 'Space' || !setRating) {
+		const handleKey = (e: KeyboardEvent<HTMLSpanElement>): void => {
+			if (!isEditable || !setRating) {
 				return
 			}
-			setRating(i + 1)
+
+			if (e.key == 'ArrowRight' || e.key == 'ArrowUp') {
+				if (!rating) {
+					setRating(1)
+				} else {
+					e.preventDefault()
+					setRating(rating < 5 ? rating + 1 : 5)
+				}
+				ratingRef.current[rating]?.focus()
+			}
+			if (e.key == 'ArrowLeft' || e.key == 'ArrowDown') {
+				e.preventDefault()
+				setRating(rating > 1 ? rating - 1 : 1)
+				ratingRef.current[rating - 2]?.focus()
+			}
+		}
+
+		const computeFocus = (r: number, i: number): number => {
+			if (!isEditable) return -1
+			if (!rating && i == 0) return tabIndex ?? 0
+			if (r == i + 1) return tabIndex ?? 0
+			return -1
 		}
 
 		const constructRating = (currentRating: number) => {
@@ -40,6 +71,9 @@ const Rating: FC<RatingProps> = forwardRef(
 					onClick={() => onClick(i)}
 					onMouseEnter={() => onChangeDisplay(i + 1)}
 					onMouseLeave={() => onChangeDisplay(rating)}
+					tabIndex={computeFocus(rating, i)}
+					onKeyDown={handleKey}
+					ref={(r) => ratingRef.current?.push(r)}
 				>
 					<SvgStar
 						className={cn(styles.star, {
@@ -47,8 +81,6 @@ const Rating: FC<RatingProps> = forwardRef(
 							[styles.filled]: currentRating > i,
 							[styles.error]: error?.message,
 						})}
-						tabIndex={isEditable ? 0 : -1}
-						onKeyDown={(e: KeyboardEvent<SVGElement>) => handleSpace(i, e)}
 					/>
 				</span>
 			))
@@ -57,7 +89,7 @@ const Rating: FC<RatingProps> = forwardRef(
 
 		React.useEffect(() => {
 			constructRating(rating)
-		}, [rating, error])
+		}, [rating, error, tabIndex])
 
 		return (
 			<div {...props} ref={ref} className={cn(styles.rating, className)}>

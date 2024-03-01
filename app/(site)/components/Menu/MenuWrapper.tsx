@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { KeyboardEvent } from 'react'
 import Link from 'next/link'
 import styles from './Menu.module.css'
 import { FC } from 'react'
@@ -50,6 +50,13 @@ const MenuWrapper: FC<MenuWrapperProps> = ({ firstCategory, menu }) => {
 		setIsOpened(cat)
 	}
 
+	const openSecondLevelKey = (key: KeyboardEvent, cat: string) => {
+		if (key.code === 'Enter' || key.code === 'Space') {
+			key.preventDefault()
+			openedSecondCategory(cat)
+		}
+	}
+
 	const buildFirstLevel = () => {
 		return (
 			<>
@@ -79,6 +86,10 @@ const MenuWrapper: FC<MenuWrapperProps> = ({ firstCategory, menu }) => {
 					return (
 						<div key={m._id.secondCategory}>
 							<div
+								tabIndex={0}
+								onKeyDown={(key: KeyboardEvent) =>
+									openSecondLevelKey(key, m._id.secondCategory)
+								}
 								className={styles.secondLevel}
 								onClick={() => openedSecondCategory(m._id.secondCategory)}
 							>
@@ -95,7 +106,11 @@ const MenuWrapper: FC<MenuWrapperProps> = ({ firstCategory, menu }) => {
 								}
 								className={cn(styles.secondLevelBlock)}
 							>
-								{buildThirdLevel(m.pages, menuItem.route)}
+								{buildThirdLevel(
+									m.pages,
+									menuItem.route,
+									isOpened == m._id.secondCategory ?? false
+								)}
 							</motion.div>
 						</div>
 					)
@@ -104,10 +119,15 @@ const MenuWrapper: FC<MenuWrapperProps> = ({ firstCategory, menu }) => {
 		)
 	}
 
-	const buildThirdLevel = (pages: PageItem[], route: string) => {
+	const buildThirdLevel = (
+		pages: PageItem[],
+		route: string,
+		isOpen: boolean
+	) => {
 		return pages.map((p) => (
 			<motion.div key={p._id} variants={variantsChildren}>
 				<Link
+					tabIndex={isOpen ? 0 : -1}
 					href={`/${route}/${p.alias}`}
 					className={cn(styles.thirdLevel, {
 						[styles.thirdLevelActive]: `/${route}/${p.alias}` == pathname,

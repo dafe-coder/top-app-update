@@ -18,6 +18,7 @@ import { sendReview } from '@/api/sendReview'
 export const ReviewForm: FC<ReviewFormProps> = ({
 	productId,
 	className,
+	isOpen,
 	...props
 }: ReviewFormProps) => {
 	const {
@@ -35,6 +36,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 			const res = await sendReview(data, productId)
 			if (res) {
 				setIsSuccess(true)
+				reset()
 			} else {
 				setError('Что-то пошло не так')
 			}
@@ -65,6 +67,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 					className={styles.input}
 					placeholder='Имя'
 					error={errors?.name}
+					tabIndex={isOpen ? 0 : -1}
 				/>
 				<Input
 					{...register('title', {
@@ -73,6 +76,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 					error={errors.title}
 					className={styles.input2}
 					placeholder='Заголовок отзыва'
+					tabIndex={isOpen ? 0 : -1}
 				/>
 				<div className={styles.rating}>
 					<Par>Оценка</Par>
@@ -87,6 +91,7 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 								isEditable
 								rating={field.value}
 								setRating={field.onChange}
+								tabIndex={isOpen ? 0 : -1}
 							/>
 						)}
 					/>
@@ -102,8 +107,13 @@ export const ReviewForm: FC<ReviewFormProps> = ({
 					error={errors.description}
 					className={styles.textarea}
 					placeholder='Текст отзыва'
+					tabIndex={isOpen ? 0 : -1}
 				/>
-				<Button appearance='primary' className={styles.btn}>
+				<Button
+					appearance='primary'
+					className={styles.btn}
+					tabIndex={isOpen ? 0 : -1}
+				>
 					Отправить
 				</Button>
 				<Par className={styles.par}>

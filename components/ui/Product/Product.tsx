@@ -22,6 +22,7 @@ const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 	const scrollToReview = () => {
 		setIsOpen(true)
 		refReview?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+		refReview.current?.focus()
 	}
 
 	const variants = {
@@ -120,11 +121,16 @@ const Product: FC<ProductProps> = ({ product, className, ...props }) => {
 				variants={variants}
 				style={{ overflow: 'hidden' }}
 			>
-				<Card ref={refReview} color='blue' className={cn(styles.review)}>
+				<Card
+					tabIndex={isOpen ? 0 : -1}
+					ref={refReview}
+					color='blue'
+					className={cn(styles.review)}
+				>
 					{product.reviews.map((r) => (
 						<Review key={r._id} review={r} />
 					))}
-					<ReviewForm productId={product._id} />
+					<ReviewForm isOpen={isOpen} productId={product._id} />
 				</Card>
 			</motion.div>
 		</div>
