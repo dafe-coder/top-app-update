@@ -26,7 +26,12 @@ const Up: FC = () => {
 			initial={{ opacity: 0 }}
 			className={cn(styles.up)}
 		>
-			<ButtonIcon appearance='primary' icon='up' onClick={scrollToTop} />
+			<ButtonIcon
+				label='Проскролить вверх страницы'
+				appearance='primary'
+				icon='up'
+				onClick={scrollToTop}
+			/>
 		</motion.div>
 	)
 }

@@ -13,8 +13,8 @@ export const Sidebar: FC<SidebarProps> = ({
 }): JSX.Element => {
 	return (
 		<div className={cn(className, styles.sidebar)} {...props}>
-			<Link href='/'>
-				<Logo className={styles.logo} />
+			<Link href='/' aria-label='Вернутся домой'>
+				<Logo aria-label='Логотип' className={styles.logo} />
 			</Link>
 			<Search />
 			<Menu />

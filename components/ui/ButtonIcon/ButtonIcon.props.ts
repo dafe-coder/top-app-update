@@ -18,4 +18,5 @@ export interface ButtonIconProps
 	> {
 	appearance: 'primary' | 'white'
 	icon: IconName
+	label: string
 }

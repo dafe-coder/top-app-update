@@ -34,7 +34,11 @@ const TopPage: FC<TopPageProps> = ({ page, products, firstLevelCategory }) => {
 			<div className={styles.header}>
 				<Htag>{page.title}</Htag>
 				{sortedProducts && (
-					<Tag color='grey' size='m'>
+					<Tag
+						color='grey'
+						size='m'
+						aria-label={products?.length + 'элементов'}
+					>
 						{sortedProducts.length}
 					</Tag>
 				)}

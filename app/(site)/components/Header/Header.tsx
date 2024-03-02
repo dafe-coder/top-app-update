@@ -31,12 +31,13 @@ export const Header: FC<HeaderProps> = ({
 
 	return (
 		<header className={cn(className, styles.header)} {...props}>
-			<Link href='/'>
-				<LogoIcon />
+			<Link href='/' aria-label='Вернутся домой'>
+				<LogoIcon aria-label='Логотип' />
 			</Link>
 			<ButtonIcon
 				appearance='white'
 				icon='menu'
+				label='Открыть меню'
 				onClick={() => setIsOpened(true)}
 			/>
 			<motion.div
@@ -49,6 +50,7 @@ export const Header: FC<HeaderProps> = ({
 				<ButtonIcon
 					onClick={() => setIsOpened(false)}
 					className={styles.menuClose}
+					label='Закрыть меню'
 					appearance='white'
 					icon='close'
 				/>

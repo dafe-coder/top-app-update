@@ -6,6 +6,7 @@ export const ButtonIcon = ({
 	appearance,
 	className,
 	icon,
+	label = '',
 	...props
 }: ButtonIconProps): JSX.Element => {
 	const IconComponent = icons[icon]
@@ -13,6 +14,7 @@ export const ButtonIcon = ({
 		<button
 			className={cn(styles.button, className, styles[appearance])}
 			{...props}
+			aria-label={label}
 		>
 			<IconComponent />
 		</button>
