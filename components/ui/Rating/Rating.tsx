@@ -1,5 +1,11 @@
 'use client'
-import React, { FC, KeyboardEvent, forwardRef, useRef } from 'react'
+import React, {
+	FC,
+	KeyboardEvent,
+	forwardRef,
+	useCallback,
+	useRef,
+} from 'react'
 import { RatingProps } from './Rating.props'
 import cn from 'classnames'
 import styles from './Rating.module.css'
@@ -64,7 +70,7 @@ const Rating: FC<RatingProps> = forwardRef(
 			return -1
 		}
 
-		const constructRating = (currentRating: number) => {
+		const constructRating = useCallback((currentRating: number) => {
 			const updatedArray = ratingArray.map((_, i) => (
 				<span
 					key={i}
@@ -85,11 +91,11 @@ const Rating: FC<RatingProps> = forwardRef(
 				</span>
 			))
 			setRatingArray(updatedArray)
-		}
+		}, [])
 
 		React.useEffect(() => {
 			constructRating(rating)
-		}, [rating, error, tabIndex])
+		}, [rating, error, tabIndex, constructRating])
 
 		return (
 			<div {...props} ref={ref} className={cn(styles.rating, className)}>
