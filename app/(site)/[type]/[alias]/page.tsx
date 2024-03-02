@@ -7,10 +7,6 @@ import { notFound } from 'next/navigation'
 import { FC } from 'react'
 import TopPage from '../../components/TopPage/TopPage'
 
-export const metadata: Metadata = {
-	title: 'Страница',
-}
-
 interface Props {
 	params: {
 		alias: string
@@ -22,6 +18,21 @@ export const generateStaticParams = async () => {
 	return menu.flatMap((item: MenuItem) =>
 		item.pages.map((page: PageItem) => ({ alias: page.alias }))
 	)
+}
+
+export async function generateMetadata({
+	params: { alias },
+}: Props): Promise<Metadata> {
+	const page = await getPage(alias)
+	return {
+		title: page?.metaTitle || '',
+		description: page?.metaDescription || '',
+		openGraph: {
+			title: page?.metaTitle || '',
+			description: page?.metaDescription || '',
+			locale: 'ru_RU',
+		},
+	}
 }
 
 const PageProducts: FC<Props> = async ({ params }) => {

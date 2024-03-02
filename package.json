@@ -6,7 +6,8 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"classnames": "^2.5.1",
@@ -23,6 +24,7 @@
 		"@types/react-dom": "^18",
 		"eslint": "^8",
 		"eslint-config-next": "14.1.0",
+		"husky": "^9.0.11",
 		"next-plugin-svgr": "^1.1.10",
 		"typescript": "^5"
 	}
